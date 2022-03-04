@@ -1,0 +1,20 @@
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>Mk_JD2_88_22</display-name>
+
+    <context-param>
+        <param-name>fileForSave</param-name>
+        <param-value>F:\Java\JD2\opt\apache-tomcat-8.5.75\conf\poll\polls.txt</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>by.it.academy.Mk_JD2_88_22.controller.web.listeners.ContextListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>by.it.academy.Mk_JD2_88_22.controller.web.listeners.SessionListener</listener-class>
+    </listener>
+
+</web-app>
