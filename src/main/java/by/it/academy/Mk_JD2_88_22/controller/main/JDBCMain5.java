@@ -10,7 +10,7 @@ public class JDBCMain5 {
     public static void main(String[] args) {
         IAirportStorage storage = DBAirportStorage.getInstance();
 
-        List<Airport> list = storage.get(1);
+        List<Airport> list = storage.get(1,5);
 
         System.out.println(list);
     }

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 
 import java.time.ZonedDateTime;
 
-@JsonFilter("myFilter")
 public class Flight {
     @JsonProperty("Идентификатор рейса")
     private int flightId;
@@ -19,12 +18,12 @@ public class Flight {
     @JsonProperty("Время вылета по расписанию")
     @JsonSerialize(using = ZonedDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ssX")
-    private ZonedDateTime timeSchedDepart;
+    private ZonedDateTime timeScheduleDepart;
 
     @JsonProperty("Время прилёта по расписанию")
     @JsonSerialize(using = ZonedDateTimeSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ssX")
-    private ZonedDateTime timeSchedArrival;
+    private ZonedDateTime timeScheduleArrival;
 
     @JsonProperty("Аэропорт вылета")
     private String codeAirDepart;
@@ -64,20 +63,20 @@ public class Flight {
         this.flightNum = flightNum;
     }
 
-    public ZonedDateTime getTimeSchedDepart() {
-        return timeSchedDepart;
+    public ZonedDateTime getTimeScheduleDepart() {
+        return timeScheduleDepart;
     }
 
-    public void setTimeSchedDepart(ZonedDateTime timeSchedDepart) {
-        this.timeSchedDepart = timeSchedDepart;
+    public void setTimeScheduleDepart(ZonedDateTime timeScheduleDepart) {
+        this.timeScheduleDepart = timeScheduleDepart;
     }
 
-    public ZonedDateTime getTimeSchedArrival() {
-        return timeSchedArrival;
+    public ZonedDateTime getTimeScheduleArrival() {
+        return timeScheduleArrival;
     }
 
-    public void setTimeSchedArrival(ZonedDateTime timeSchedArrival) {
-        this.timeSchedArrival = timeSchedArrival;
+    public void setTimeScheduleArrival(ZonedDateTime timeScheduleArrival) {
+        this.timeScheduleArrival = timeScheduleArrival;
     }
 
     public String getCodeAirDepart() {
@@ -133,8 +132,8 @@ public class Flight {
         return "Flight{" +
                 "flightId=" + flightId +
                 ", flightNum='" + flightNum + '\'' +
-                ", timeDepart=" + timeSchedDepart +
-                ", timeArrival=" + timeSchedArrival +
+                ", timeDepart=" + timeScheduleDepart +
+                ", timeArrival=" + timeScheduleArrival +
                 ", codeAirDepart='" + codeAirDepart + '\'' +
                 ", codeAirArrival='" + codeAirArrival + '\'' +
                 ", status='" + status + '\'' +

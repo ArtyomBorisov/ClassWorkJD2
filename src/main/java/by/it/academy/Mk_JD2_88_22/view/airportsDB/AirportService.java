@@ -17,8 +17,8 @@ public class AirportService implements IAirportService {
     }
 
     @Override
-    public List<Airport> get(int count) {
-        return storage.get(count);
+    public List<Airport> get(int page, int size) {
+        return storage.get(page, size);
     }
 
     public static AirportService getInstance() {

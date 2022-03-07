@@ -32,9 +32,23 @@ public class AirportsServlet extends HttpServlet {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
-        int count = Integer.parseInt(req.getParameter("count"));
+        int page;
+        String pageRaw = req.getParameter("page");
+        if (pageRaw == null || pageRaw.isEmpty()) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(pageRaw);
+        }
 
-        List<Airport> airports = airportService.get(count);
+        int size;
+        String sizeRaw = req.getParameter("size");
+        if (sizeRaw == null || sizeRaw.isEmpty()) {
+            size = 10;
+        } else {
+            size = Integer.parseInt(sizeRaw);
+        }
+
+        List<Airport> airports = airportService.get(page, size);
 
         writer.write(mapper.writeValueAsString(airports));
     }

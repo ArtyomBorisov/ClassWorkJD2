@@ -1,12 +1,11 @@
 package by.it.academy.Mk_JD2_88_22.controller.web.servlets.airportsDB;
 
 import by.it.academy.Mk_JD2_88_22.model.airpotsDB.Flight;
+import by.it.academy.Mk_JD2_88_22.model.airpotsDB.FlightFilter;
+import by.it.academy.Mk_JD2_88_22.model.airpotsDB.Pageable;
 import by.it.academy.Mk_JD2_88_22.view.airportsDB.FlightService;
 import by.it.academy.Mk_JD2_88_22.view.api.IFlightService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,15 +34,33 @@ public class FlightsServlet extends HttpServlet {
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
-        int count = Integer.parseInt(req.getParameter("count"));
+        int page;
+        String pageRaw = req.getParameter("page");
+        if (pageRaw == null || pageRaw.isEmpty()) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(pageRaw);
+        }
 
-        List<Flight> list = flightService.get(count);
+        int size;
+        String sizeRaw = req.getParameter("size");
+        if (sizeRaw == null || sizeRaw.isEmpty()) {
+            size = 10;
+        } else {
+            size = Integer.parseInt(sizeRaw);
+        }
 
-        SimpleBeanPropertyFilter theFilter = SimpleBeanPropertyFilter.filterOutAllExcept(
-                "Аэропорт вылета",
-                "Аэропорт прилета",
-                "Время вылета по расписанию");
-        FilterProvider filter = new SimpleFilterProvider().addFilter("myFilter", theFilter);
-        writer.write(mapper.writer(filter).writeValueAsString(list));
+        Pageable pageable = new Pageable(page, size);
+
+        String airArr = req.getParameter("airArr");
+        String airDep = req.getParameter("airDep");
+
+        FlightFilter filter = new FlightFilter.Builder().
+                setCodeAirArrival(airArr).
+                setCodeAirDepart(airDep).build();
+
+        List<Flight> list = flightService.get(filter, pageable);
+
+        writer.write(mapper.writeValueAsString(list));
     }
 }

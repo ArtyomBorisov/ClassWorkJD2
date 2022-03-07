@@ -7,6 +7,7 @@ import by.it.academy.Mk_JD2_88_22.storage.api.IAirportStorage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,28 +16,38 @@ public class DBAirportStorage implements IAirportStorage {
 
     private static DBAirportStorage instance = new DBAirportStorage();
     private final ObjectMapper mapper = new ObjectMapper();
+    private final DataSource dataSource;
 
     private DBAirportStorage() {
-        DBInitializer.getInstance();
+        dataSource = DBInitializer.getInstance().getDataSource();
     }
 
     @Override
-    public List<Airport> get(int count) {
-        List<Airport> airports = new ArrayList<>();
+    public List<Airport> get(int page, int size) {
+        int limit = size;
+        int offset = (page - 1) * limit;
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5433/demo?ApplicationName=Messenger",
-                "postgres", "postgres");
+        List<Airport> airports = new ArrayList<>();
+        String sql = "SELECT\n" +
+                "    airport_code,\n" +
+                "    airport_name,\n" +
+                "    city,\n" +
+                "    coordinates,\n" +
+                "    timezone\n" +
+                "FROM\n" +
+                "    bookings.airports_data ";
+
+        if (limit > 0) {
+            sql += "\n LIMIT " + limit;
+        }
+        if (offset > 0) {
+            sql += "\n OFFSET " + offset;
+        }
+        sql += ";";
+
+        try (Connection conn = dataSource.getConnection();
              Statement statement = conn.createStatement();
-             ResultSet rs = statement.executeQuery("SELECT\n" +
-                     "    airport_code,\n" +
-                     "    airport_name,\n" +
-                     "    city,\n" +
-                     "    coordinates,\n" +
-                     "    timezone\n" +
-                     "FROM\n" +
-                     "    bookings.airports_data " +
-                     "LIMIT " + count))
+             ResultSet rs = statement.executeQuery(sql))
         {
             while (rs.next()){
                 Airport airport = new Airport();

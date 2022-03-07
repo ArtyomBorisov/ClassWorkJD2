@@ -1,5 +1,7 @@
 package by.it.academy.Mk_JD2_88_22.controller.main;
 
+import by.it.academy.Mk_JD2_88_22.model.airpotsDB.FlightFilter;
+
 import java.sql.*;
 
 public class JDBCMain {
