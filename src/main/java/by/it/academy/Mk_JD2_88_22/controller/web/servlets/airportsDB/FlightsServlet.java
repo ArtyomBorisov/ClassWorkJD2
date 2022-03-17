@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @WebServlet(name = "FlightsServlet", urlPatterns = "/flights")
@@ -31,8 +33,6 @@ public class FlightsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("application/json");
-        PrintWriter writer = resp.getWriter();
 
         int page;
         String pageRaw = req.getParameter("page");
@@ -54,13 +54,45 @@ public class FlightsServlet extends HttpServlet {
 
         String airArr = req.getParameter("airArr");
         String airDep = req.getParameter("airDep");
+        String dayArr = req.getParameter("dayArr");
 
-        FlightFilter filter = new FlightFilter.Builder().
-                setCodeAirArrival(airArr).
-                setCodeAirDepart(airDep).build();
+        FlightFilter.Builder builderRaw = new FlightFilter.Builder();
 
-        List<Flight> list = flightService.get(filter, pageable);
+        if (airArr != null && !airArr.isEmpty()) {
+            builderRaw.setCodeAirArrival(airArr);
+        }
 
-        writer.write(mapper.writeValueAsString(list));
+        if (airDep != null && !airDep.isEmpty()) {
+            builderRaw.setCodeAirDepart(airDep);
+        }
+
+        if (dayArr != null && !dayArr.isEmpty()) {
+            try {
+                LocalDate date = LocalDate.parse(dayArr);
+                builderRaw.setTimeScheduleArrival(date);
+            } catch (DateTimeParseException e) {}
+        }
+
+        FlightFilter filter = builderRaw.build();
+
+        List<Flight> flights = flightService.get(filter, pageable);
+
+        String contentType = req.getContentType();
+        if ("application/json".equals(contentType)) {
+            resp.setContentType("application/json");
+
+            PrintWriter writer = resp.getWriter();
+
+            writer.write(mapper.writeValueAsString(flights));
+        } else {
+            resp.setContentType("text/html");
+
+            req.setAttribute("size", size);
+            req.setAttribute("page", page);
+            req.setAttribute("flights", flights);
+
+            req.getRequestDispatcher("views/flights.jsp").forward(req, resp);
+        }
+
     }
 }

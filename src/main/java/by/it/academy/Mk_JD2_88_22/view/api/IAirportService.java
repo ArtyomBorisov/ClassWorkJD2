@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IAirportService {
     List<Airport> get(int page, int size);
+
+    List<String> getAirportCode();
 }

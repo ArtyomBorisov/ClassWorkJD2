@@ -82,6 +82,26 @@ public class DBAirportStorage implements IAirportStorage {
         return airports;
     }
 
+    @Override
+    public List<String> getAirportCode() {
+        List<String> data = new ArrayList<>();
+
+        String sql = "SELECT airport_code FROM bookings.airports_data;";
+
+        try (Connection conn = dataSource.getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql))
+        {
+            while (rs.next()){
+                data.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка выполнения SQL", e);
+        }
+
+        return data;
+    }
+
     public static DBAirportStorage getInstance() {
         return instance;
     }

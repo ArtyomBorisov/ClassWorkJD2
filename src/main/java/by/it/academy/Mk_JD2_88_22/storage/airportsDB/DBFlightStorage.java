@@ -85,19 +85,19 @@ public class DBFlightStorage implements IFlightStorage {
                 where += "flight_no = ?";
                 params.add(filter.getFlightNum());
             }
-            if (filter.getTimeScheduleDepart() != null) {
+            if (filter.getDayScheduleDepart() != null) {
                 if (!where.isEmpty()) {
                     where += "AND ";
                 }
-                where += "scheduled_departure = ?";
-                params.add(filter.getTimeScheduleDepart());
+                where += "date_trunc('day', scheduled_departure) = ?";
+                params.add(filter.getDayScheduleDepart());
             }
-            if (filter.getTimeScheduleArrival() != null) {
+            if (filter.getDayScheduleArrival() != null) {
                 if (!where.isEmpty()) {
                     where += "AND ";
                 }
-                where += "scheduled_arrival = ?";
-                params.add(filter.getTimeScheduleArrival());
+                where += "date_trunc('day', scheduled_arrival) = ?";
+                params.add(filter.getDayScheduleArrival());
             }
             if (filter.getCodeAirDepart() != null && !filter.getCodeAirDepart().isEmpty()) {
                 if (!where.isEmpty()) {
@@ -127,19 +127,19 @@ public class DBFlightStorage implements IFlightStorage {
                 where += "aircraft_code = ?";
                 params.add(filter.getAircraftCode());
             }
-            if (filter.getTimeActualDepart() != null) {
+            if (filter.getDayActualDepart() != null) {
                 if (!where.isEmpty()) {
                     where += "AND ";
                 }
-                where += "actual_departure = ?";
-                params.add(filter.getTimeActualDepart());
+                where += "date_trunc('day', actual_departure) = ?";
+                params.add(filter.getDayActualDepart());
             }
-            if (filter.getTimeActualArrival() != null) {
+            if (filter.getDayActualArrival() != null) {
                 if (!where.isEmpty()) {
                     where += "AND ";
                 }
-                where += "actual_arrival = ?";
-                params.add(filter.getTimeActualArrival());
+                where += "date_trunc('day', actual_arrival) = ?";
+                params.add(filter.getDayActualArrival());
             }
             if (!where.isEmpty()) {
                 sql += "\n WHERE " + where;

@@ -21,6 +21,11 @@ public class AirportService implements IAirportService {
         return storage.get(page, size);
     }
 
+    @Override
+    public List<String> getAirportCode() {
+        return storage.getAirportCode();
+    }
+
     public static AirportService getInstance() {
         return instance;
     }

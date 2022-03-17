@@ -1,18 +1,18 @@
 package by.it.academy.Mk_JD2_88_22.model.airpotsDB;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 public class FlightFilter {
     private int flightId;
     private String flightNum;
-    private ZonedDateTime timeScheduleDepart;
-    private ZonedDateTime timeScheduleArrival;
+    private LocalDate dayScheduleDepart;
+    private LocalDate dayScheduleArrival;
     private String codeAirDepart;
     private String codeAirArrival;
     private String status;
     private String aircraftCode;
-    private ZonedDateTime timeActualDepart;
-    private ZonedDateTime timeActualArrival;
+    private LocalDate dayActualDepart;
+    private LocalDate dayActualArrival;
 
     public int getFlightId() {
         return flightId;
@@ -22,12 +22,12 @@ public class FlightFilter {
         return flightNum;
     }
 
-    public ZonedDateTime getTimeScheduleDepart() {
-        return timeScheduleDepart;
+    public LocalDate getDayScheduleDepart() {
+        return dayScheduleDepart;
     }
 
-    public ZonedDateTime getTimeScheduleArrival() {
-        return timeScheduleArrival;
+    public LocalDate getDayScheduleArrival() {
+        return dayScheduleArrival;
     }
 
     public String getCodeAirDepart() {
@@ -46,12 +46,12 @@ public class FlightFilter {
         return aircraftCode;
     }
 
-    public ZonedDateTime getTimeActualDepart() {
-        return timeActualDepart;
+    public LocalDate getDayActualDepart() {
+        return dayActualDepart;
     }
 
-    public ZonedDateTime getTimeActualArrival() {
-        return timeActualArrival;
+    public LocalDate getDayActualArrival() {
+        return dayActualArrival;
     }
 
     public static class Builder {
@@ -71,13 +71,13 @@ public class FlightFilter {
             return this;
         }
 
-        public Builder setTimeScheduleDepart(ZonedDateTime timeScheduleDepart) {
-            newFlightFilter.timeScheduleDepart = timeScheduleDepart;
+        public Builder setTimeScheduleDepart(LocalDate timeScheduleDepart) {
+            newFlightFilter.dayScheduleDepart = timeScheduleDepart;
             return this;
         }
 
-        public Builder setTimeScheduleArrival(ZonedDateTime timeScheduleArrival) {
-            newFlightFilter.timeScheduleArrival = timeScheduleArrival;
+        public Builder setTimeScheduleArrival(LocalDate timeScheduleArrival) {
+            newFlightFilter.dayScheduleArrival = timeScheduleArrival;
             return this;
         }
 
@@ -101,13 +101,13 @@ public class FlightFilter {
             return this;
         }
 
-        public Builder setTimeActualDepart(ZonedDateTime timeActualDepart) {
-            newFlightFilter.timeActualDepart = timeActualDepart;
+        public Builder setTimeActualDepart(LocalDate timeActualDepart) {
+            newFlightFilter.dayActualDepart = timeActualDepart;
             return this;
         }
 
-        public Builder setTimeActualArrival(ZonedDateTime timeActualArrival) {
-            newFlightFilter.timeActualArrival = timeActualArrival;
+        public Builder setTimeActualArrival(LocalDate timeActualArrival) {
+            newFlightFilter.dayActualArrival = timeActualArrival;
             return this;
         }
 
