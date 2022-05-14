@@ -4,7 +4,6 @@ import by.it.academy.Mk_JD2_88_22.model.airpotsDB.Flight;
 import by.it.academy.Mk_JD2_88_22.model.airpotsDB.FlightFilter;
 import by.it.academy.Mk_JD2_88_22.model.airpotsDB.Pageable;
 import by.it.academy.Mk_JD2_88_22.storage.api.IFlightStorage;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -17,7 +16,6 @@ import java.util.List;
 public class DBFlightStorage implements IFlightStorage {
 
     private static DBFlightStorage instance = new DBFlightStorage();
-    private final ObjectMapper mapper = new ObjectMapper();
     private final DataSource dataSource;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ssX");
 

@@ -69,7 +69,7 @@ public class FlightsServlet extends HttpServlet {
         if (dayArr != null && !dayArr.isEmpty()) {
             try {
                 LocalDate date = LocalDate.parse(dayArr);
-                builderRaw.setTimeScheduleArrival(date);
+                builderRaw.setDayScheduleArrival(date);
             } catch (DateTimeParseException e) {}
         }
 

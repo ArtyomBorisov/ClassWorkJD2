@@ -71,13 +71,13 @@ public class FlightFilter {
             return this;
         }
 
-        public Builder setTimeScheduleDepart(LocalDate timeScheduleDepart) {
-            newFlightFilter.dayScheduleDepart = timeScheduleDepart;
+        public Builder setDayScheduleDepart(LocalDate dayScheduleDepart) {
+            newFlightFilter.dayScheduleDepart = dayScheduleDepart;
             return this;
         }
 
-        public Builder setTimeScheduleArrival(LocalDate timeScheduleArrival) {
-            newFlightFilter.dayScheduleArrival = timeScheduleArrival;
+        public Builder setDayScheduleArrival(LocalDate dayScheduleArrival) {
+            newFlightFilter.dayScheduleArrival = dayScheduleArrival;
             return this;
         }
 
@@ -101,13 +101,13 @@ public class FlightFilter {
             return this;
         }
 
-        public Builder setTimeActualDepart(LocalDate timeActualDepart) {
-            newFlightFilter.dayActualDepart = timeActualDepart;
+        public Builder setDayActualDepart(LocalDate dayActualDepart) {
+            newFlightFilter.dayActualDepart = dayActualDepart;
             return this;
         }
 
-        public Builder setTimeActualArrival(LocalDate timeActualArrival) {
-            newFlightFilter.dayActualArrival = timeActualArrival;
+        public Builder setDayActualArrival(LocalDate dayActualArrival) {
+            newFlightFilter.dayActualArrival = dayActualArrival;
             return this;
         }
 
